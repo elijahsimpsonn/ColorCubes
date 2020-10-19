@@ -1,24 +1,50 @@
-let dancingSquare = {  //This is my variable that is holding all of the values and functionality of the dancing square on the screen.
-    x: 300, //Set the x var to a value of 300
-    y: 200, //Set the y var to a vaule of 200
-    display: function() { //declare a function for how the square displays
-        stroke(255); //p5.js function for the color of the outline of the square (rgb)
-        strokeWeight(4); //p5.js function for the pixel width of the outline of the square
-        noFill(); //p5.js function that leaves the inside color of the square empty
-        square(this.x, this.y, 50) //p5.js function that creates a square with (x-axis position, y-axis position, side size). Using 'this'.
-    },
-    move: function() { //declare a function for how the square moves
-        this.x = this.x + random(-1, 1); //this states that this.x is now equal to itself plus a random position between -1 and 1
-        this.y = this.y + random(-1, 1); //this states that this.y is now equal to itself plus a random position between -1 and 1
+let cubes = []; //Declaring a new variables called cubes that holds and empty array
+
+function setup() { //p5.js function that sets up the program
+    createCanvas(windowWidth, windowHeight); //p5.js function that creates the canavs and sets it to be === to thw width and height of the browser window;
+}
+
+function mousePressed() { //p5.js event function that works when the mouse is pressed
+    let cubeSides = random(10, 75); //varible using the p5.js function random to set the cube sides to a random number bewtween 10 and 75
+    let r = random(255); //varible using the p5.js function random to set the cube red color value to a random number bewtween 10 and 75
+    let g = random(255); //varible using the p5.js function random to set the cube green color value to a random number bewtween 10 and 75
+    let b = random(255); //varible using the p5.js function random to set the cube blue color value to a random number bewtween 10 and 75
+    let strw = random(1, 6); //varible using the p5.js function random to set the cube line width value to a random number bewtween 10 and 75
+    let newCube = new Cube(mouseX, mouseY, cubeSides, r, g, b, strw); //varibile that calls on the class Cube to create a new instance of cube with an x and y 
+    //coordinate of the mouse click location and a side of the newCube variable value
+    cubes.push(newCube); //pushes this new instance to the cubes array
+}
+
+function draw() { //p5.js loop function draw that lets the program draw things on the canvas
+    background(0); //p5.js function that is setting the background color (rgb)
+    for (let i = 0; i < cubes.length; i++) { //for loop that is going over the cubes array 
+    cubes[i].move(); //calling the move function from the Cube class for the current indexed element in the cubes array
+    cubes[i].display(); //calling the display function from the Cube class for the current indexed element in the cubes array
     }
 }
 
-function setup() { //p5.js function to set up the program
-    createCanvas(600, 400); //p5.js function to define a canvas width and height
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight); //p5.js function that always resizes the canvas to === the browser window
 }
 
-function draw() { //p5.js loop function to show things on canvas 
-    background(0); //p5.js function that sets the background color for the canvas (rgb)
-    dancingSquare.move(); //calling the move function in the dancingSquare variable
-    dancingSquare.display(); //calling the display function in the dancingSquare variable
+class Cube { //Cube class which defines what a cube is
+    constructor(x, y, s, r, g, b, strw) { //required class function constructor which takes in three parameters
+        this.x = x; //setting the this.x to whatever the x parameter arguement is
+        this.y = y; //setting the this.y to whatever the y parameter arguement is
+        this.s = s; //setting the this.s to whatever the s parameter arguement is
+        this.r = r; //setting the this.s to whatever the r parameter arguement is
+        this.g = g; //setting the this.s to whatever the g parameter arguement is
+        this.b = b; //setting the this.s to whatever the b parameter arguement is
+        this.strw = strw; //setting the this.strw to whatever the strw parameter arguement is
+    }
+    move() { //function that determines how each cube will move
+        this.x += random(-1, 1); //this sets the value of this.x to itself plus a random number between -1 and 1
+        this.y += random(-1, 1); //this sets the value of this.y to itself plus a random number between -1 and 1
+    }
+    display() { //function that determines how each cube will be look
+        stroke(this.r,this.g,this.b); //p5.js function that sets the color of the outline of each cube (rgb) depending on the arguements passed to the constructor function
+        strokeWeight(this.strw); //p5.js function that sets the pixel width of the outline of each cube depending on the arguements passed to the constructor function
+        noFill(); //p5.js function that sets the inside color of the cube to be empty
+        square(this.x, this.y, this.s); //p5.js function that draws a square (x coordinate, y coordinate, side size) depending on the arguements passed to the constructor function
+    }
 }
