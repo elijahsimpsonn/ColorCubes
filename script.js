@@ -1,17 +1,17 @@
-let cubes = []; //Declaring a new variables called cubes that holds and empty array
+let cubes = []; //Declaring a new variable called cubes that holds a empty array
 
 function setup() { //p5.js function that sets up the program
-    createCanvas(windowWidth, windowHeight); //p5.js function that creates the canavs and sets it to be === to thw width and height of the browser window;
+    createCanvas(windowWidth, windowHeight); //p5.js function that creates the canavs and sets it to be === to the width and height of the browser window;
 }
 
 function mousePressed() { //p5.js event function that works when the mouse is pressed
     let cubeSides = random(10, 75); //varible using the p5.js function random to set the cube sides to a random number bewtween 10 and 75
-    let r = random(255); //varible using the p5.js function random to set the cube red color value to a random number bewtween 10 and 75
-    let g = random(255); //varible using the p5.js function random to set the cube green color value to a random number bewtween 10 and 75
-    let b = random(255); //varible using the p5.js function random to set the cube blue color value to a random number bewtween 10 and 75
-    let strw = random(1, 6); //varible using the p5.js function random to set the cube line width value to a random number bewtween 10 and 75
+    let r = random(255); //varible using the p5.js function random to set the cube red color value to a random number bewtween 0 and 255
+    let g = random(255); //varible using the p5.js function random to set the cube green color value to a random number bewtween 0 and 255
+    let b = random(255); //varible using the p5.js function random to set the cube blue color value to a random number bewtween 0 and 255
+    let strw = random(1, 6); //varible using the p5.js function random to set the cube line width value to a random number bewtween 1 and 6
     let newCube = new Cube(mouseX, mouseY, cubeSides, r, g, b, strw); //varibile that calls on the class Cube to create a new instance of cube with an x and y 
-    //coordinate of the mouse click location and a side of the newCube variable value
+    //coordinate of the mouse click location and a side of the newCube variable value as well as the colors of the cube and the pixel width of the cube lines
     cubes.push(newCube); //pushes this new instance to the cubes array
 }
 
